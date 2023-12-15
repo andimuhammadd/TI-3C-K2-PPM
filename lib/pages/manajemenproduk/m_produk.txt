@@ -1,0 +1,7 @@
+Ketika Owner ingin menambahkan produk baru ke dalam aplikasi, mereka akan memasukkan nama produk, harga, deskripsi, dan kategori produk.
+
+Pengeditan Produk: Jika ada perubahan dalam informasi produk seperti harga atau deskripsi, pemilik atau manajer dapat mengedit informasi tersebut.
+
+Pencarian Produk: Kasir dapat mencari produk yang akan dibeli oleh pelanggan dengan menginput nama produk atau kode Produk.
+
+Penghapusan Produk: Jika suatu produk tidak lagi tersedia atau relevan, pemilik atau manajer dapat menghapus produk dari daftar.
