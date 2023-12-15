@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ti_3c_k2_ppm/pages/login/login_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, String? role}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -30,7 +31,12 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
               onPressed: () {
-                // logout
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  (route) =>
+                      false, // Hapus semua rute sebelumnya dari tumpukan rute
+                );
               },
               icon: const Icon(Icons.logout_sharp),
             ),
