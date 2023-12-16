@@ -36,7 +36,7 @@ dependencies:
   sqflite: ^2.3.0
   cupertino_icons: ^1.0.6
   flutter_overboard: ^3.1.1
-  path: ^1.9.0
+  path: ^1.8.3
   dropdown_search: ^5.0.6
   esc_pos_printer: ^4.1.0
   file: ^7.0.0
