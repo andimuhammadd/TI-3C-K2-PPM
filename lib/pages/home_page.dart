@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ti_3c_k2_ppm/pages/login/login_page.dart';
+import 'package:cassiere/pages/login/login_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, String? role}) : super(key: key);
