@@ -1,7 +1,10 @@
+import 'package:cassiere/pages/home_page.dart';
+import 'package:cassiere/pages/signup_page.dart';
+import 'package:cassiere/utils/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../library/custom_text_field.dart';
-import 'package:ti_3c_k2_ppm/pages/home_page.dart';
+
+import '../library/custom_text_field.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,17 +18,14 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   bool isObscured = true;
   final _formKey = GlobalKey<FormState>();
-  final List<Map<String, String>> users = [
-    {'email': 'admin@example.com', 'password': 'admin123', 'role': 'admin'},
-    {
-      'email': 'employee@example.com',
-      'password': 'employee123',
-      'role': 'employee'
-    },
-  ];
+  final List<String> users = ['admin', 'employee'];
+
+  LocalDbHelper dbHelper = LocalDbHelper();
+  OnlineDbHelper onlineDbHelper = OnlineDbHelper();
 
   @override
   void initState() {
+    dbHelper.initDb();
     super.initState();
   }
 
@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Text(
                       'Please Login!',
-                      style: Theme.of(context).textTheme.titleLarge,
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -93,34 +93,35 @@ class _LoginPageState extends State<LoginPage> {
                               onPressed: () {
                                 var navigator = Navigator.of(context);
                                 if (_formKey.currentState!.validate()) {
-                                  // Verifikasi login sederhana
-                                  var foundUser = users.firstWhere(
-                                    (user) =>
-                                        user['email'] ==
-                                            _emailController.text &&
-                                        user['password'] ==
-                                            _passwordController.text,
-                                    orElse: () => {'role': ''},
-                                  );
-
-                                  if (foundUser['role']!.isNotEmpty) {
-                                    ScaffoldMessenger.of(context)
-                                        .clearSnackBars();
-                                    navigator.pushReplacement(
-                                      MaterialPageRoute(
-                                        builder: (_) {
-                                          return HomePage(
-                                              role: foundUser['role']);
-                                        },
-                                      ),
-                                    );
-                                  } else {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content: Text(
-                                          'Login failed, email or password is wrong!'),
-                                    ));
-                                  }
+                                  // dbHelper
+                                  //     .doLogin(
+                                  //   _emailController.text.trim(),
+                                  //   _passwordController.text,
+                                  //   context: context,
+                                  // )
+                                  onlineDbHelper
+                                      .doLogin(_emailController.text,
+                                          _passwordController.text)
+                                      .then((value) {
+                                    print(value);
+                                    if (value == 1) {
+                                      ScaffoldMessenger.of(context)
+                                          .clearSnackBars();
+                                      navigator.pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (_) {
+                                            return HomePage();
+                                          },
+                                        ),
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                        content: Text(
+                                            'Login failed, email or password is wrong!'),
+                                      ));
+                                    }
+                                  });
                                 }
                               },
                             ),
@@ -132,21 +133,29 @@ class _LoginPageState extends State<LoginPage> {
                             width: double.infinity,
                             child: ElevatedButton(
                               child: const Text('Sign Up as Admin'),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (_) {
+                                  return const SignUpPage();
+                                }));
+                              },
                             ),
                           ),
                           const SizedBox(height: 20),
                           ElevatedButton(
-                            onPressed: () {
-                              var dt = DateTime.now();
-                              var formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
-                              String formatted = formatter.format(dt);
-                              print(formatted);
-                              String a = formatter.parse(formatted).toString();
-                              print('formart $formatted');
-                            },
-                            child: const Text('Coba'),
-                          ),
+                              onPressed: () {
+                                var dt = DateTime.now();
+                                var formatter =
+                                    DateFormat('yyyy-MM-dd HH:mm:ss');
+                                String formatted =
+                                    formatter.format(dt); // Save this to DB
+                                print(formatted); // Output: 2021-05-11 08:52:45
+                                String a =
+                                    formatter.parse(formatted).toString();
+                                print(
+                                    'formart $formatted'); // Convert back to DateTime object
+                              },
+                              child: const Text('Coba')),
                         ],
                       ),
                     ),
