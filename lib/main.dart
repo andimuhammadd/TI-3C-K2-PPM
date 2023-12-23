@@ -1,18 +1,17 @@
+import 'package:cassiere/pages/landing_page.dart';
 import 'package:flutter/material.dart';
-import 'package:ti_3c_k2_ppm/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Toko Saku',
+      title: 'Cassiere',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         appBarTheme: const AppBarTheme(
@@ -40,8 +39,8 @@ class MyApp extends StatelessWidget {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.black,
-            backgroundColor: Colors.amber,
+            primary: Colors.amber,
+            onPrimary: Colors.black,
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(0),
@@ -53,7 +52,9 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.black,
         ),
       ),
-      home: const HomePage(),
+
+      /// TODO
+      home: const LandingPage(),
     );
   }
 }
