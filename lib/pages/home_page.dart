@@ -21,7 +21,12 @@ class _HomePageState extends State<HomePage> {
   OnlineDbHelper onlineDbHelper = OnlineDbHelper();
   Prefs prefs = Prefs();
   final List<String> _menu = ['New Payment', 'Print Invoice', 'Sales Report'];
-  final List<String> _adminMenu = ['Store Info', 'Stocks', 'Employees'];
+  final List<String> _adminMenu = [
+    'Store Info',
+    'Employees',
+    'Product',
+    'Sales Report',
+  ];
 
   List<User> users = [];
 
@@ -92,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (_) => const NewProductPage(),
+                                    builder: (_) => const PaymentPage(),
                                   ),
                                 );
                               } else if (index == 1) {
@@ -100,6 +105,20 @@ class _HomePageState extends State<HomePage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) => const EmployeesPage(),
+                                  ),
+                                );
+                              } else if (index == 2) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const NewProductPage(),
+                                  ),
+                                );
+                              } else if (index == 3) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const SalesReportPage(),
                                   ),
                                 );
                               }
