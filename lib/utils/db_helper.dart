@@ -11,7 +11,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:http/http.dart' as http;
 
 class OnlineDbHelper {
-  final _url = 'http://10.0.2.2:8000/cassiere_local_api-master';
+  final _url = 'http://localhost/cassiere_lokal_api/';
 
   Future<int> insertStore(String id, String name, String address) async {
     Uri url = Uri.parse('$_url/add_store.php');
